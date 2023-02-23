@@ -20,4 +20,16 @@ public class StoreService {
     public void addStore(Store store) {
         stores.add(store);
     }
+
+    public Store getStoreById(String code)
+    {
+        for(Store store:stores)
+        {
+            if(store.getCode().equalsIgnoreCase(code))
+            {
+                return store;
+            }
+        }
+        return null;
+    }
 }
