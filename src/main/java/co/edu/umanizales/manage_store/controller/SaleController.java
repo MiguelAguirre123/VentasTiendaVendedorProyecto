@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,22 @@ public class SaleController {
                 HttpStatus.OK);
     }
 
+    @GetMapping(path = "/total")
+    public ResponseEntity<ResponseDTO> getTotalSales(){
+        return new ResponseEntity<>(new ResponseDTO(200, 
+        saleService.getTotalSales(), null),HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/total/{code}")
+    public ResponseEntity<ResponseDTO> getTotalSalesBySeller(
+        @PathVariable String code
+    ){
+        return new ResponseEntity<>(new ResponseDTO(200, 
+        saleService.getTotalSalesBySeller(code), null),
+        HttpStatus.OK);
+    }
+
+
     @PostMapping
     public ResponseEntity<ResponseDTO> createSale(@RequestBody
                                                   SaleDTO saleDTO){
@@ -56,6 +73,12 @@ public class SaleController {
         return new ResponseEntity<>(new ResponseDTO(200,
                 "Venta adicionada",null),
                 HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/bestseller")
+    public ResponseEntity<ResponseDTO> getBestSeller(){
+        return new ResponseEntity<>(new ResponseDTO(200,
+                saleService.getBestSeller(sellerService.getSellers()), null),HttpStatus.OK);
     }
 
 }
