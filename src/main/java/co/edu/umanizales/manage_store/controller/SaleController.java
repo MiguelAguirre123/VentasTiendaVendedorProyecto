@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "sale")
@@ -81,4 +82,11 @@ public class SaleController {
                 saleService.getBestSeller(sellerService.getSellers()), null),HttpStatus.OK);
     }
 
+    @GetMapping(path = "/averagesalesbystore")
+    public ResponseEntity<ResponseDTO> getAverageSalesByStore(){
+
+        return new ResponseEntity<>(new ResponseDTO(200,
+                        saleService.getTotalSales()/(float)storeService.getStores().size(),
+                null),HttpStatus.OK);
+    }
 }
