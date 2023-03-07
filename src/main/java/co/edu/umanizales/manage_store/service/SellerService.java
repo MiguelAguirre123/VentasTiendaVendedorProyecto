@@ -30,4 +30,16 @@ public class SellerService {
         }
         return null;
     }
+
+    public boolean compareNameSeller(String name)
+    {
+        for(Seller seller:sellers)
+        {
+            if(seller.getName().equalsIgnoreCase(name))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

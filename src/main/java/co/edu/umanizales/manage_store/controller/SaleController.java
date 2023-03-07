@@ -98,8 +98,29 @@ public class SaleController {
     @GetMapping(path = "/averagesalesbystore")
     public ResponseEntity<ResponseDTO> getAverageSalesByStore(){
 
+        if (storeService.getStores().size() == 0){
+
+            return new ResponseEntity<>(new ResponseDTO(200,
+                    "No ha ingresado ninguna tienda para hallar en el promedio",
+                    null),HttpStatus.BAD_REQUEST);
+        }
+
         return new ResponseEntity<>(new ResponseDTO(200,
                         saleService.getTotalSales()/(float)storeService.getStores().size(),
+                null),HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/averagesalesbyseller")
+    public ResponseEntity<ResponseDTO> getAverageSalesBySeller(){
+
+        if (sellerService.getSellers().size() == 0){
+
+            return new ResponseEntity<>(new ResponseDTO(200,
+                    "No ha ingresado ningun vendedor para hallar en el promedio",
+                    null),HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new ResponseDTO(200,
+                saleService.getTotalSales()/(float)sellerService.getSellers().size(),
                 null),HttpStatus.OK);
     }
 }

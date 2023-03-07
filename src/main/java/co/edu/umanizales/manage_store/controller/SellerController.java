@@ -31,7 +31,7 @@ public class SellerController {
     @PostMapping
     public ResponseEntity<ResponseDTO> createSeller(@RequestBody Seller seller) {
         Seller findStore = sellerService.getSellerById(seller.getCode());
-        if( findStore == null) {
+        if( findStore == null && !sellerService.compareNameSeller(seller.getName())) {
             sellerService.addSeller(seller);
             return new ResponseEntity<>(new ResponseDTO(
                     200, "Vendedor agregado", null
@@ -40,7 +40,7 @@ public class SellerController {
         else
         {
             return new ResponseEntity<>(new ResponseDTO(
-                    409, "Ya existe un vendedor con ese código", null
+                    409, "Ya existe un vendedor con ese código o nombre", null
             ), HttpStatus.BAD_REQUEST);
         }
     }

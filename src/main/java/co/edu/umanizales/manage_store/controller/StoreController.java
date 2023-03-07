@@ -32,7 +32,7 @@ public class StoreController {
     @PostMapping
     public ResponseEntity<ResponseDTO> createStore(@RequestBody Store store) {
         Store findStore = storeService.getStoreById(store.getCode());
-        if( findStore == null) {
+        if( findStore == null && !storeService.compareNameStore(store.getName())) {
             storeService.addStore(store);
             return new ResponseEntity<>(new ResponseDTO(
                     200, "Tienda agregada", null
@@ -41,7 +41,7 @@ public class StoreController {
         else
         {
             return new ResponseEntity<>(new ResponseDTO(
-                    409, "Ya existe una tienda con ese código", null
+                    409, "Ya existe una tienda con ese código o nombre", null
             ), HttpStatus.BAD_REQUEST);
         }
     }

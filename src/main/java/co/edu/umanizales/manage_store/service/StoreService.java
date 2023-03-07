@@ -1,5 +1,6 @@
 package co.edu.umanizales.manage_store.service;
 
+import co.edu.umanizales.manage_store.model.Seller;
 import co.edu.umanizales.manage_store.model.Store;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,17 @@ public class StoreService {
             }
         }
         return null;
+    }
+
+    public boolean compareNameStore(String name)
+    {
+        for(Store store:stores)
+        {
+            if(store.getName().equalsIgnoreCase(name))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
