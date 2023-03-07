@@ -54,7 +54,7 @@ public class StoreController {
         {
             return new ResponseEntity<>(new ResponseDTO(
                     404, "No existe una tienda con ese código", null
-            ), HttpStatus.OK);
+            ), HttpStatus.BAD_REQUEST);
         }
         else {
             return new ResponseEntity<>(new ResponseDTO(

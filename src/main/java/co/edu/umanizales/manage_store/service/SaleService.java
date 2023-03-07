@@ -82,6 +82,20 @@ public class SaleService {
         }
         return bestStoreDTO;
     }
+
+    public Sale compareSale(Sale newSale)
+    {
+        for (Sale sale:sales){
+
+            if(sale.getStore().getCode().equalsIgnoreCase(newSale.getStore().getCode())
+                    && sale.getSeller().getCode().equalsIgnoreCase(newSale.getSeller().getCode())){
+                return null;
+            }
+
+        }
+
+        return newSale;
+    }
     
 
 }

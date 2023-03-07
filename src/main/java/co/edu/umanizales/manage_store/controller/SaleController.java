@@ -77,6 +77,12 @@ public class SaleController {
                     "La tienda ingresada no existe",null),
                     HttpStatus.BAD_REQUEST);
         }
+        Sale sale = saleService.compareSale(new Sale(findStore,findSeller, saleDTO.getQuantity()));
+        if(sale == null){
+            return new ResponseEntity<>(new ResponseDTO(409,
+                    "Ya existe un vendedor con esa tienda",null),
+                    HttpStatus.BAD_REQUEST);
+        }
         saleService.addSale(new Sale(findStore,findSeller,
                 saleDTO.getQuantity()));
         return new ResponseEntity<>(new ResponseDTO(200,
@@ -86,12 +92,20 @@ public class SaleController {
 
     @GetMapping(path = "/bestseller")
     public ResponseEntity<ResponseDTO> getBestSeller(){
+        if(saleService.getTotalSales() == 0){
+            return new ResponseEntity<>(new ResponseDTO(409,
+                    "No hay ninguna venta registrada", null),HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,
                 saleService.getBestSeller(sellerService.getSellers()), null),HttpStatus.OK);
     }
 
     @GetMapping(path = "/beststore")
     public ResponseEntity<ResponseDTO> getBestStore(){
+        if(saleService.getTotalSales() == 0){
+            return new ResponseEntity<>(new ResponseDTO(409,
+                    "No hay ninguna venta registrada", null),HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,
                 saleService.getBestStore(storeService.getStores()), null),HttpStatus.OK);
     }
@@ -100,7 +114,7 @@ public class SaleController {
 
         if (storeService.getStores().size() == 0){
 
-            return new ResponseEntity<>(new ResponseDTO(200,
+            return new ResponseEntity<>(new ResponseDTO(409,
                     "No ha ingresado ninguna tienda para hallar en el promedio",
                     null),HttpStatus.BAD_REQUEST);
         }
@@ -115,7 +129,7 @@ public class SaleController {
 
         if (sellerService.getSellers().size() == 0){
 
-            return new ResponseEntity<>(new ResponseDTO(200,
+            return new ResponseEntity<>(new ResponseDTO(409,
                     "No ha ingresado ningun vendedor para hallar en el promedio",
                     null),HttpStatus.BAD_REQUEST);
         }

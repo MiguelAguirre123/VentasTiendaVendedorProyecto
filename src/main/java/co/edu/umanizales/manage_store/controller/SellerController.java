@@ -53,7 +53,7 @@ public class SellerController {
         {
             return new ResponseEntity<>(new ResponseDTO(
                     404, "No existe un vendedor con ese código", null
-            ), HttpStatus.OK);
+            ), HttpStatus.BAD_REQUEST);
         }
         else {
             return new ResponseEntity<>(new ResponseDTO(
