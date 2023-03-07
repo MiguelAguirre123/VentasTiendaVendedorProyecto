@@ -13,8 +13,6 @@ public class StoreService {
 
     public StoreService() {
         stores = new ArrayList<>();
-        stores.add(new Store("1","Armenia"));
-        stores.add(new Store("2","Pereira"));
     }
 
     public void addStore(Store store) {

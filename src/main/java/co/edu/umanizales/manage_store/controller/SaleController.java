@@ -43,7 +43,7 @@ public class SaleController {
         saleService.getTotalSales(), null),HttpStatus.OK);
     }
 
-    @GetMapping(path = "/total/{code}")
+    @GetMapping(path = "/total/seller/{code}")
     public ResponseEntity<ResponseDTO> getTotalSalesBySeller(
         @PathVariable String code
     ){
@@ -52,6 +52,14 @@ public class SaleController {
         HttpStatus.OK);
     }
 
+    @GetMapping(path = "/total/store/{code}")
+    public ResponseEntity<ResponseDTO> getTotalSalesByStore(
+            @PathVariable String code
+    ){
+        return new ResponseEntity<>(new ResponseDTO(200,
+                saleService.getTotalSalesByStore(code), null),
+                HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<ResponseDTO> createSale(@RequestBody
@@ -81,4 +89,9 @@ public class SaleController {
                 saleService.getBestSeller(sellerService.getSellers()), null),HttpStatus.OK);
     }
 
+    @GetMapping(path = "/beststore")
+    public ResponseEntity<ResponseDTO> getBestStore(){
+        return new ResponseEntity<>(new ResponseDTO(200,
+                saleService.getBestStore(storeService.getStores()), null),HttpStatus.OK);
+    }
 }
