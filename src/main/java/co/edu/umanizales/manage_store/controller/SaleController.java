@@ -48,6 +48,11 @@ public class SaleController {
     public ResponseEntity<ResponseDTO> getTotalSalesBySeller(
         @PathVariable String code
     ){
+        if(sellerService.getSellerById(code) == null){
+            return new ResponseEntity<>(new ResponseDTO(404,
+                    "No existe un vendedor con ese codigo", null),
+                    HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(new ResponseDTO(200, 
         saleService.getTotalSalesBySeller(code), null),
         HttpStatus.OK);
@@ -57,6 +62,11 @@ public class SaleController {
     public ResponseEntity<ResponseDTO> getTotalSalesByStore(
             @PathVariable String code
     ){
+        if(storeService.getStoreById(code) == null){
+            return new ResponseEntity<>(new ResponseDTO(404,
+                    "No existe una tienda con ese codigo", null),
+                    HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,
                 saleService.getTotalSalesByStore(code), null),
                 HttpStatus.OK);
