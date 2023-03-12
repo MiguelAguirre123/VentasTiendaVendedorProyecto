@@ -96,6 +96,19 @@ public class SaleService {
 
         return newSale;
     }
-    
+
+    public List<BestSellerDTO> getSellerSalesByQuantity(List<Seller> sellers, int cantidadMinima){
+        List<BestSellerDTO> listSellerbyTotalSales = new ArrayList<BestSellerDTO>(){};
+
+        for(Seller seller:sellers){
+            int totalSales = getTotalSalesBySeller(seller.getCode());
+            if(cantidadMinima < totalSales){
+                BestSellerDTO sellerByTotalSales = new BestSellerDTO(seller, totalSales);
+                listSellerbyTotalSales.add(sellerByTotalSales);
+            }
+        }
+
+        return listSellerbyTotalSales;
+    }
 
 }
