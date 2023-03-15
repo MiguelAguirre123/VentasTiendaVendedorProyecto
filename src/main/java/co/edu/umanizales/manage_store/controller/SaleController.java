@@ -144,9 +144,8 @@ public class SaleController {
                 null),HttpStatus.OK);
     }
 
-    @GetMapping(path = "/totalbyquantity")
-    public ResponseEntity<ResponseDTO> createListSellerSalesByQuantity(
-            @RequestParam (value="cantidadMinimaArticulos") Integer cantidadMinimaArticulos) {
+    @GetMapping(path = "/totalbyquantity/{cantidadMinimaArticulos}")
+    public ResponseEntity<ResponseDTO> createListSellerSalesByQuantity(@PathVariable int cantidadMinimaArticulos) {
         return new ResponseEntity<>(new ResponseDTO(200,
                 saleService.getSellerSalesByQuantity(sellerService.getSellers(), cantidadMinimaArticulos),
                 null),HttpStatus.OK);
